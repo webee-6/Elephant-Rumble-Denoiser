@@ -61,7 +61,7 @@ This will:
 - Save processing logs → `outputs/logs/`
 - Create a timestamped `.zip` archive
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 elephant_denoiser/
@@ -85,7 +85,7 @@ elephant_denoiser/
 └── notebooks/             # Jupyter notebooks for exploration
 ```
 
-## ⚙️ Configuration
+## Configuration
 
 Edit `config/config.py` to customize:
 
@@ -110,7 +110,7 @@ hpss_kernel_size = 31
 hpss_margin = 3.0
 ```
 
-## 🧪 Parameter Tuning
+## Parameter Tuning
 
 Use the tuning module to test different parameters:
 
@@ -130,7 +130,7 @@ results = test_parameters(
 )
 ```
 
-## 📊 Understanding the Pipeline
+## Understanding the Pipeline
 
 ### Stage 1: Band-Pass Filter
 Removes frequencies outside elephant vocalization range (20-1000 Hz).
@@ -147,7 +147,7 @@ Separates harmonic (elephant rumbles) from percussive (machinery clicks/pops) co
 ### Stage 5: Wiener Filter
 MSE-optimal noise reduction using local signal statistics.
 
-## 📈 Output Analysis
+## Output Analysis
 
 After batch processing, check `outputs/logs/processing_results.csv` for:
 - Processing status (success/failed)
@@ -155,11 +155,11 @@ After batch processing, check `outputs/logs/processing_results.csv` for:
 - Duration, sample rate
 - Noise profile source and validation metrics
 
-## 🔬 Research Context
+## Research Context
 
-This pipeline was developed for the elephant bioacoustics hackathon challenge to denoise mechanical interference from African elephant rumble recordings. The frequency range (20-300 Hz for fundamentals) requires specialized low-frequency processing.
+This pipeline was developed for the elephant bioacoustics to denoise mechanical interference from African elephant rumble recordings. The frequency range (20-300 Hz for fundamentals) requires specialized low-frequency processing.
 
-## 🤝 Contributing
+## Contributing
 
 Contributions welcome! Areas for improvement:
 - [ ] Deep learning denoising (U-Net, Conv-TasNet)
@@ -168,20 +168,11 @@ Contributions welcome! Areas for improvement:
 - [ ] More noise type classifiers
 - [ ] Automated quality metrics
 
-## 📝 Citation
 
-If you use this pipeline in research:
-
-```
-Elephant Rumble Denoiser (2026)
-Multi-stage DSP pipeline for bioacoustic denoising
-[Add your citation details]
-```
-
-## 📜 License
+## License
 
 MIT License - feel free to use and modify for your research.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 Built for elephant bioacoustics research. Uses librosa, noisereduce, and scipy for signal processing.
