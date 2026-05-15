@@ -13,21 +13,16 @@ import argparse
 import warnings
 import shutil
 from datetime import datetime
-
-# Add src to path
 sys.path.insert(0, os.path.dirname(__file__))
-
 from config.config import CONFIG
 from src.batch_process import load_and_validate_data, batch_process, print_analysis
 from src.pipeline import process_single_call
 warnings.filterwarnings('ignore')
 
-
 def setup_directories():
     os.makedirs('outputs/audio', exist_ok=True)
     os.makedirs('outputs/spectrograms', exist_ok=True)
     os.makedirs('outputs/logs', exist_ok=True)
-
 
 def test_single_call(df):
     test_row = df.iloc[0]
@@ -57,7 +52,6 @@ def test_single_call(df):
     else:
         print(f'\n Test failed: {test_result["error"]}')
     return test_result
-
 
 def create_archive():
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
