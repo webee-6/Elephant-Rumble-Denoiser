@@ -118,17 +118,23 @@ def process_single_call(audio_path: str,
                 final = final / peak * CONFIG.normalize_level
         
         # === STEP 8: Save Audio ===
-        base_name = f"selection_{selection_id:03d}_{Path(audio_path).stem}"
-        audio_out_path = f"{output_dir}/audio/{base_name}_cleaned.wav"
+        # Sanitize stem: replace spaces with underscores to avoid soundfile System errors
+        safe_stem = Path(audio_path).stem.replace(' ', '_')
+        base_name = f"selection_{selection_id:03d}_{safe_stem}"
+        audio_dir = Path(output_dir) / 'audio'
+        audio_dir.mkdir(parents=True, exist_ok=True)
+        audio_out_path = str(audio_dir / f"{base_name}_cleaned.wav")
         sf.write(audio_out_path, final, sr)
         result['output_audio'] = audio_out_path
         
         # === STEP 9: Generate Spectrograms ===
+        spec_dir = Path(output_dir) / 'spectrograms'
+        spec_dir.mkdir(parents=True, exist_ok=True)
         # B/W spectrogram of cleaned signal
         spec_path = create_bw_spectrogram(
             final, sr,
             title=f'Selection {selection_id} - Cleaned',
-            save_path=f"{output_dir}/spectrograms/{base_name}_cleaned.png"
+            save_path=str(spec_dir / f"{base_name}_cleaned.png")
         )
         result['spectrogram'] = spec_path
         
@@ -136,7 +142,7 @@ def process_single_call(audio_path: str,
         comparison_path = create_comparison_plot(
             call_segment, final, sr,
             title=f'Selection {selection_id} - {noise_type.capitalize()}',
-            save_path=f"{output_dir}/spectrograms/{base_name}_comparison.png"
+            save_path=str(spec_dir / f"{base_name}_comparison.png")
         )
         result['comparison_plot'] = comparison_path
         
@@ -148,6 +154,6 @@ def process_single_call(audio_path: str,
     except Exception as e:
         result['status'] = 'failed'
         result['error'] = str(e)
-        print(f"❌ Selection {selection_id} failed: {e}")
+        print(f" Selection {selection_id} failed: {e}")
     
     return result
