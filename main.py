@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Elephant Rumble Denoiser - Main Entry Point
+KUMKI RADAR - Elephant Rumble Denoiser
 
 Usage:
     python main.py --csv /path/to/calls.csv --audio /path/to/audio/folder
