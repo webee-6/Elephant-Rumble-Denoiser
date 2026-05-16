@@ -35,7 +35,7 @@ def test_single_call(df):
     """Test pipeline on first available call."""
     test_row = df.iloc[0]
     
-    print('🧪 Testing pipeline on single call...')
+    print(' Testing pipeline on single call...')
     print(f'   File: {test_row["Sound_file"]}')
     print(f'   Time: {test_row["Start_time"]:.2f}s - {test_row["End_time"]:.2f}s')
     print(f'   Selection: {test_row["Selection"]}')
@@ -55,13 +55,13 @@ def test_single_call(df):
             print(f'{key:20s}: {value}')
     
     if test_result['status'] == 'success':
-        print('\n✅ Test successful! Pipeline is working.')
-        print(f'\n📂 Outputs:')
+        print('\nTest successful! Pipeline is working.')
+        print(f'\n Outputs:')
         print(f'   Audio: {test_result["output_audio"]}')
         print(f'   Spectrogram: {test_result["spectrogram"]}')
         print(f'   Comparison: {test_result["comparison_plot"]}')
     else:
-        print(f'\n❌ Test failed: {test_result["error"]}')
+        print(f'\nTest failed: {test_result["error"]}')
     
     return test_result
 
@@ -71,13 +71,13 @@ def create_archive():
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     zip_name = f'elephant_denoiser_results_{timestamp}'
     
-    print(f'\n📦 Creating archive: {zip_name}.zip')
+    print(f'\n Creating archive: {zip_name}.zip')
     shutil.make_archive(zip_name, 'zip', 'outputs')
     
     full_zip_path = os.path.abspath(f"{zip_name}.zip")
-    print(f'✅ Archive created successfully!')
-    print(f'📍 Location: {full_zip_path}')
-    print(f'📊 Size: {os.path.getsize(full_zip_path) / (1024*1024):.1f} MB')
+    print(f' Archive created successfully!')
+    print(f' Location: {full_zip_path}')
+    print(f' Size: {os.path.getsize(full_zip_path) / (1024*1024):.1f} MB')
     
     return full_zip_path
 
@@ -101,7 +101,7 @@ def main():
     
     # Banner
     print('='*60)
-    print('🐘 ELEPHANT RUMBLE DENOISER')
+    print(' ELEPHANT RUMBLE DENOISER')
     print('='*60)
     print('   Multi-stage DSP pipeline for bioacoustic denoising')
     print('   Removes airplane, vehicle, and generator noise')
@@ -112,11 +112,11 @@ def main():
     CONFIG.print_summary()
     
     # Load and validate data
-    print('\n📂 Loading data...')
+    print('\n Loading data...')
     df = load_and_validate_data(args.csv, args.audio)
     
     if len(df) == 0:
-        print('❌ No processable calls found. Exiting.')
+        print(' No processable calls found. Exiting.')
         return 1
     
     # Test mode
@@ -134,7 +134,7 @@ def main():
     if not args.no_archive:
         create_archive()
     
-    print('\n✅ All done!')
+    print('\n All done!')
     
     return 0
 
