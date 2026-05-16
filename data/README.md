@@ -1,4 +1,4 @@
-# 📂 Data Directory
+# Data Directory
 
 This directory contains input data for the elephant rumble denoiser.
 
