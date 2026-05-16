@@ -18,14 +18,14 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 print("="*70)
-print("🤖 AUTOMATIC CLUSTER LABELING")
+print(" AUTOMATIC CLUSTER LABELING")
 print("="*70)
 
 # ============================================================================
 # LOAD DATA
 # ============================================================================
 
-print("\n📊 Loading data...")
+print("\n Loading data...")
 
 # Load clusters
 clusters_df = pd.read_csv('unsupervised_results/cluster_assignments.csv')
@@ -35,12 +35,12 @@ features_raw = np.load('unsupervised_results/features_raw.npy')
 
 # Check which features we have
 if Path('unsupervised_results/features_pca.npy').exists():
-    print("⚠️ PCA features detected - using raw features for interpretation")
+    print(" PCA features detected - using raw features for interpretation")
     features = features_raw
 else:
     features = np.load('unsupervised_results/features_normalized.npy')
 
-print(f"✅ Loaded {len(clusters_df)} files with {features.shape[1]} features")
+print(f" Loaded {len(clusters_df)} files with {features.shape[1]} features")
 
 # ============================================================================
 # DEFINE FEATURE MEANINGS (for interpretation)
@@ -107,7 +107,7 @@ def extract_interpretable_features(audio_path, sr=44100):
         return features
     
     except Exception as e:
-        print(f"⚠️ Error processing file: {e}")
+        print(f" Error processing file: {e}")
         return None
 
 # ============================================================================
@@ -136,7 +136,7 @@ for cluster_id in sorted(clusters_df['cluster'].unique()):
                 cluster_features.append(feats)
     
     if not cluster_features:
-        print("⚠️ No valid audio files found")
+        print(" No valid audio files found")
         continue
     
     # Convert to DataFrame
@@ -193,7 +193,7 @@ for cluster_id in sorted(clusters_df['cluster'].unique()):
 # ============================================================================
 
 print("\n" + "="*70)
-print("🏷️ GENERATING AUTOMATIC LABELS")
+print(" GENERATING AUTOMATIC LABELS")
 print("="*70)
 
 def generate_label(cluster_id, stats):
@@ -252,11 +252,11 @@ for cluster_id, stats in cluster_characteristics.items():
 # ============================================================================
 
 print("\n" + "="*70)
-print("📊 CLUSTER COMPARISON")
+print(" CLUSTER COMPARISON")
 print("="*70)
 
 # Find most distinctive features
-print("\n🔍 Most Distinctive Characteristics:\n")
+print("\n Most Distinctive Characteristics:\n")
 
 clusters = list(cluster_characteristics.keys())
 if len(clusters) >= 2:
@@ -277,7 +277,7 @@ if len(clusters) >= 2:
                      cluster_characteristics[c1]['energy']['mean'])
     print(f"Energy difference: {energy_diff:.4f}")
     
-    print("\n📌 Key Differences:")
+    print("\n Key Differences:")
     if dur_diff > 2:
         print(f"  • Cluster {c0} is {'LONGER' if cluster_characteristics[c0]['duration']['mean'] > cluster_characteristics[c1]['duration']['mean'] else 'SHORTER'} than Cluster {c1}")
     
@@ -291,7 +291,7 @@ if len(clusters) >= 2:
 # VISUALIZE CLUSTER DIFFERENCES
 # ============================================================================
 
-print("\n📊 Creating visualizations...")
+print("\n Creating visualizations...")
 
 # Prepare data for plotting
 plot_data = []
@@ -357,14 +357,14 @@ plt.tight_layout()
 plt.savefig('unsupervised_results/cluster_characteristics.png', dpi=150, bbox_inches='tight')
 plt.show()
 
-print("✅ Saved: unsupervised_results/cluster_characteristics.png")
+print(" Saved: unsupervised_results/cluster_characteristics.png")
 
 # ============================================================================
 # SAVE LABELS
 # ============================================================================
 
 print("\n" + "="*70)
-print("💾 SAVING AUTOMATIC LABELS")
+print(" SAVING AUTOMATIC LABELS")
 print("="*70)
 
 # Save for use in training
@@ -377,13 +377,13 @@ Path('data').mkdir(exist_ok=True)
 with open('data/cluster_names_auto.json', 'w') as f:
     json.dump(cluster_names, f, indent=2)
 
-print(f"\n💾 Saved: data/cluster_names_auto.json")
+print(f"\n Saved: data/cluster_names_auto.json")
 
 # Save detailed characteristics
 with open('unsupervised_results/cluster_characteristics.json', 'w') as f:
     json.dump(cluster_characteristics, f, indent=2)
 
-print(f"💾 Saved: unsupervised_results/cluster_characteristics.json")
+print(f" Saved: unsupervised_results/cluster_characteristics.json")
 
 # Create human-readable report
 report_lines = []
@@ -410,30 +410,24 @@ for cluster_id, label in auto_labels.items():
 with open('unsupervised_results/cluster_report.txt', 'w') as f:
     f.write('\n'.join(report_lines))
 
-print(f"💾 Saved: unsupervised_results/cluster_report.txt")
+print(f" Saved: unsupervised_results/cluster_report.txt")
 
 # ============================================================================
 # SUMMARY
 # ============================================================================
 
 print("\n" + "="*70)
-print("✅ AUTOMATIC LABELING COMPLETE!")
+print(" AUTOMATIC LABELING COMPLETE!")
 print("="*70)
 
-print("\n🏷️ Generated Labels:")
+print("\n Generated Labels:")
 for cluster_id, label in auto_labels.items():
     count = (clusters_df['cluster'] == cluster_id).sum()
     print(f"  Cluster {cluster_id}: {label} ({count} files)")
 
-print("\n📁 Files Created:")
-print("  ✅ data/cluster_names_auto.json - Use this in training")
-print("  ✅ unsupervised_results/cluster_characteristics.json - Detailed stats")
-print("  ✅ unsupervised_results/cluster_characteristics.png - Visualizations")
-print("  ✅ unsupervised_results/cluster_report.txt - Human-readable report")
+print("\n Files Created:")
+print("   data/cluster_names_auto.json - Use this in training")
+print("   unsupervised_results/cluster_characteristics.json - Detailed stats")
+print("   unsupervised_results/cluster_characteristics.png - Visualizations")
+print("   unsupervised_results/cluster_report.txt - Human-readable report")
 
-print("\n🚀 Next Steps:")
-print("  1. Review cluster_characteristics.png")
-print("  2. Read cluster_report.txt for details")
-print("  3. Use these labels in training:")
-print(f"     python train_complete.py")
-print("\n" + "="*70)
