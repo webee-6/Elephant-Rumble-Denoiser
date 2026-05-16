@@ -7,7 +7,7 @@ Discovers natural patterns and clusters without labels.
 Usage:
     python analyze_rumbles_unsupervised.py --audio outputs/audio
     python analyze_rumbles_unsupervised.py --audio outputs/audio --features opensmile
-    python analyze_rumbles_unsupervised.py --audio outputs/audio --features openl3 --clusters 5
+    python analyze_rumbles_unsupervised.py --audio outputs/audio --features opensmile --clusters 5
 """
 
 import argparse
@@ -116,7 +116,7 @@ Examples:
     
     # Validate
     if not Path(args.audio).exists():
-        print(f"❌ Audio directory not found: {args.audio}")
+        print(f" Audio directory not found: {args.audio}")
         sys.exit(1)
     
     # Print configuration
@@ -193,7 +193,7 @@ Examples:
     print("\n" + "="*70)
     print("ANALYSIS COMPLETE")
     print("="*70)
-    print(f"✅ Results saved to: {args.output}/")
+    print(f" Results saved to: {args.output}/")
     print(f"\nGenerated files:")
     print(f"  - features_raw.npy              # Raw features")
     print(f"  - features_normalized.npy       # Normalized features")
@@ -209,13 +209,6 @@ Examples:
     
     anomaly_count = sum(anomalies == -1)
     print(f"  Anomalies found: {anomaly_count} ({anomaly_count/len(anomalies)*100:.1f}%)")
-    
-    print(f"\n🎯 Next steps:")
-    print(f"  1. Review visualization.png to see rumble groupings")
-    print(f"  2. Check cluster_assignments.csv for which rumble is in which cluster")
-    print(f"  3. Listen to representative rumbles from each cluster")
-    print(f"  4. Investigate anomalies.csv for unusual calls")
-
 
 if __name__ == "__main__":
     main()
