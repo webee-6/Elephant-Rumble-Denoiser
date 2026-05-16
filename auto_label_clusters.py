@@ -49,7 +49,7 @@ print(f" Loaded {len(clusters_df)} files with {features.shape[1]} features")
 # For openl3/PCA features, we can't interpret individual dimensions
 # But we CAN analyze the AUDIO FILES directly!
 
-print("\n🔬 Analyzing acoustic characteristics per cluster...")
+print("\n Analyzing acoustic characteristics per cluster...")
 
 # We'll extract interpretable features from the raw audio
 import librosa
@@ -426,8 +426,8 @@ for cluster_id, label in auto_labels.items():
     print(f"  Cluster {cluster_id}: {label} ({count} files)")
 
 print("\n Files Created:")
-print("   data/cluster_names_auto.json - Use this in training")
-print("   unsupervised_results/cluster_characteristics.json - Detailed stats")
-print("   unsupervised_results/cluster_characteristics.png - Visualizations")
-print("   unsupervised_results/cluster_report.txt - Human-readable report")
+print("   data/cluster_names_auto.json")
+print("   unsupervised_results/cluster_characteristics.json ")
+print("   unsupervised_results/cluster_characteristics.png ")
+print("   unsupervised_results/cluster_report.txt ")
 
