@@ -1,0 +1,27 @@
+{
+  "best_model": "Random Forest",
+  "best_test_accuracy": 1.0,
+  "n_features": 25,
+  "n_classes": 3,
+  "cluster_names": {
+    "0": "Type A",
+    "1": "Type B",
+    "2": "Type C"
+  },
+  "train_size": 168,
+  "test_size": 43,
+  "models": {
+    "random_forest": {
+      "train_acc": 0.9940476190476191,
+      "test_acc": 1.0
+    },
+    "svm": {
+      "train_acc": 1.0,
+      "test_acc": 0.9534883720930233
+    },
+    "cnn": {
+      "train_acc": 0.9940476190476191,
+      "test_acc": 1.0
+    }
+  }
+}

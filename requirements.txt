@@ -6,3 +6,17 @@ noisereduce>=3.0.0
 scipy>=1.9.0
 pandas>=1.5.0
 tqdm>=4.64.0
+
+# Machine Learning (optional - install as needed)
+scikit-learn>=1.0.0  # Classical ML
+# torch>=2.0.0  # Uncomment for PyTorch
+# tensorflow>=2.12.0  # Uncomment for TensorFlow
+# umap-learn>=0.5.0  # Better than t-SNE for visualization
+# joblib>=1.2.0  # Model persistence
+
+# Advanced Feature Extraction (optional - install for better features)
+# opensmile>=2.4.0  # 6,373 features - BEST for speech/bioacoustics
+# openl3>=0.4.1  # Deep embeddings (512/6144-dim) - BEST for small datasets
+# pyAudioAnalysis>=0.3.0  # 34 features - Good for music
+# essentia>=2.1b6  # 200+ features - Research-grade
+# tensorflow-hub>=0.12.0  # For VGGish/YAMNet embeddings

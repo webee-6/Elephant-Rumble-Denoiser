@@ -1,0 +1,11 @@
+Selection,Sound_file,Start_time,End_time,CallType,ElephantID,Confidence,Notes
+1,airplane_02.wav,2.4,38.4,contact,Ellie,high,Clear contact call
+2,vehicle_03.wav,5.2,12.8,greeting,Dumbo,high,Reunion call
+3,generator_01.wav,8.1,15.3,contact,Ellie,medium,Some noise remaining
+4,airplane_05.wav,12.5,20.1,alarm,Jumbo,high,Predator detected
+5,vehicle_07.wav,3.2,8.9,greeting,Dumbo,low,Overlapping calls
+6,generator_02.wav,15.6,22.3,mating,Unknown,medium,Unfamiliar individual
+7,airplane_08.wav,7.8,14.2,contact,Ellie,high,Long duration
+8,vehicle_09.wav,4.5,9.1,contact,Jumbo,high,Social bonding
+9,generator_03.wav,11.2,18.7,alarm,Ellie,high,Rapid rumbles
+10,airplane_11.wav,6.3,13.5,greeting,Dumbo,medium,Moderate quality

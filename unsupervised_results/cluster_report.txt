@@ -1,0 +1,39 @@
+======================================================================
+AUTOMATIC CLUSTER LABELING REPORT
+======================================================================
+
+Cluster 0: Medium Low-Freq Loud Tonal
+----------------------------------------------------------------------
+  Duration: 4.06s (± 1.74s)
+  Range: 2.12s - 8.62s
+  Energy: 0.1570
+  Spectral Centroid: 129.9 Hz
+  Frequency Distribution:
+    - Low (10-100 Hz):    62.4%
+    - Mid (100-300 Hz):   35.4%
+    - High (300-1000 Hz): 2.2%
+  Harmonic Ratio: 1.00
+
+Cluster 1: Medium Low-Freq Loud Tonal
+----------------------------------------------------------------------
+  Duration: 3.82s (± 1.81s)
+  Range: 1.70s - 7.71s
+  Energy: 0.1509
+  Spectral Centroid: 140.6 Hz
+  Frequency Distribution:
+    - Low (10-100 Hz):    67.4%
+    - Mid (100-300 Hz):   27.6%
+    - High (300-1000 Hz): 5.1%
+  Harmonic Ratio: 0.99
+
+Cluster 2: Medium Low-Freq Loud Tonal
+----------------------------------------------------------------------
+  Duration: 3.54s (± 1.74s)
+  Range: 1.00s - 7.34s
+  Energy: 0.1710
+  Spectral Centroid: 167.7 Hz
+  Frequency Distribution:
+    - Low (10-100 Hz):    65.4%
+    - Mid (100-300 Hz):   30.1%
+    - High (300-1000 Hz): 4.5%
+  Harmonic Ratio: 1.00

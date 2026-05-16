@@ -5,6 +5,7 @@ Main processing pipeline for elephant rumble denoising.
 import numpy as np
 import librosa
 import soundfile as sf
+import re
 from pathlib import Path
 from typing import Dict
 
@@ -25,6 +26,35 @@ from src.visualization import (
     create_bw_spectrogram,
     create_comparison_plot
 )
+
+
+def sanitize_filename(filename: str) -> str:
+    """
+    Sanitize filename by removing/replacing problematic characters.
+    
+    Args:
+        filename: Original filename
+    
+    Returns:
+        Sanitized filename safe for all filesystems
+    """
+    # Remove extension
+    name = Path(filename).stem
+    
+    # Replace spaces with underscores
+    name = name.replace(' ', '_')
+    
+    # Remove or replace other problematic characters
+    # Keep only alphanumeric, underscore, hyphen, and period
+    name = re.sub(r'[^\w\-.]', '_', name)
+    
+    # Remove multiple consecutive underscores
+    name = re.sub(r'_+', '_', name)
+    
+    # Remove leading/trailing underscores
+    name = name.strip('_')
+    
+    return name
 
 
 def process_single_call(audio_path: str,
@@ -68,7 +98,13 @@ def process_single_call(audio_path: str,
     }
     
     try:
-        # === STEP 0: Load Audio ===
+        # === STEP 0: Setup - Ensure output directories exist ===
+        import os
+        os.makedirs(f"{output_dir}/audio", exist_ok=True)
+        os.makedirs(f"{output_dir}/spectrograms", exist_ok=True)
+        os.makedirs(f"{output_dir}/logs", exist_ok=True)
+        
+        # Load Audio ===
         y, sr = librosa.load(audio_path, sr=None, mono=True)
         
         # Convert time to samples
@@ -118,23 +154,19 @@ def process_single_call(audio_path: str,
                 final = final / peak * CONFIG.normalize_level
         
         # === STEP 8: Save Audio ===
-        # Sanitize stem: replace spaces with underscores to avoid soundfile System errors
-        safe_stem = Path(audio_path).stem.replace(' ', '_')
-        base_name = f"selection_{selection_id:03d}_{safe_stem}"
-        audio_dir = Path(output_dir) / 'audio'
-        audio_dir.mkdir(parents=True, exist_ok=True)
-        audio_out_path = str(audio_dir / f"{base_name}_cleaned.wav")
+        # Sanitize filename to avoid filesystem issues
+        safe_filename = sanitize_filename(Path(audio_path).name)
+        base_name = f"selection_{selection_id:03d}_{safe_filename}"
+        audio_out_path = f"{output_dir}/audio/{base_name}_cleaned.wav"
         sf.write(audio_out_path, final, sr)
         result['output_audio'] = audio_out_path
         
         # === STEP 9: Generate Spectrograms ===
-        spec_dir = Path(output_dir) / 'spectrograms'
-        spec_dir.mkdir(parents=True, exist_ok=True)
         # B/W spectrogram of cleaned signal
         spec_path = create_bw_spectrogram(
             final, sr,
             title=f'Selection {selection_id} - Cleaned',
-            save_path=str(spec_dir / f"{base_name}_cleaned.png")
+            save_path=f"{output_dir}/spectrograms/{base_name}_cleaned.png"
         )
         result['spectrogram'] = spec_path
         
@@ -142,7 +174,7 @@ def process_single_call(audio_path: str,
         comparison_path = create_comparison_plot(
             call_segment, final, sr,
             title=f'Selection {selection_id} - {noise_type.capitalize()}',
-            save_path=str(spec_dir / f"{base_name}_comparison.png")
+            save_path=f"{output_dir}/spectrograms/{base_name}_comparison.png"
         )
         result['comparison_plot'] = comparison_path
         
@@ -154,6 +186,6 @@ def process_single_call(audio_path: str,
     except Exception as e:
         result['status'] = 'failed'
         result['error'] = str(e)
-        print(f" Selection {selection_id} failed: {e}")
+        print(f"❌ Selection {selection_id} failed: {e}")
     
     return result
