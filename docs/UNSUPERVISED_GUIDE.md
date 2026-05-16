@@ -4,7 +4,7 @@ Complete guide to discovering patterns in your rumbles **without any manual labe
 
 ---
 
-## 🎯 What You'll Discover
+## What You'll Discover
 
 ### **1. Natural Rumble Groups (Clusters)**
 - Different call types naturally group together
@@ -25,7 +25,7 @@ Complete guide to discovering patterns in your rumbles **without any manual labe
 
 ---
 
-## 🚀 Quick Start (3 Commands)
+## Quick Start (3 Commands)
 
 ```bash
 # 1. Extract features from your rumbles
@@ -38,8 +38,6 @@ python analyze_rumbles_unsupervised.py --audio outputs/audio
 **That's it!** Results saved to `unsupervised_results/`
 
 ---
-
-## 📊 What Happens
 
 ### Pipeline Overview
 
@@ -81,7 +79,7 @@ Cleaned Rumbles (N files)
 
 ---
 
-## 🛠️ Usage Examples
+## Usage Examples
 
 ### **Example 1: Auto-Detect Everything**
 
@@ -165,7 +163,7 @@ python analyze_rumbles_unsupervised.py \
 
 ---
 
-## 📈 Understanding the Results
+## Understanding the Results
 
 ### **1. optimal_clusters.png**
 
@@ -254,7 +252,7 @@ selection_047_cleaned.wav,True,-0.128
 
 ---
 
-## 🔬 Clustering Methods
+## Clustering Methods
 
 ### **K-Means** (Default)
 ```bash
@@ -290,7 +288,7 @@ selection_047_cleaned.wav,True,-0.128
 
 ---
 
-## 🎨 Dimensionality Reduction
+## Dimensionality Reduction
 
 ### **UMAP** (Recommended)
 ```bash
@@ -318,7 +316,7 @@ selection_047_cleaned.wav,True,-0.128
 
 ---
 
-## 💡 Interpreting Clusters
+## Interpreting Clusters
 
 ### **What do the clusters mean?**
 
@@ -348,7 +346,7 @@ Clusters group rumbles that are **acoustically similar**. This could be:
 
 ---
 
-## 🔍 Next Steps After Clustering
+## Next Steps After Clustering
 
 ### **1. Label the Clusters**
 
@@ -412,7 +410,7 @@ for _, row in unusual.iterrows():
 
 ---
 
-## 📊 Advanced: Feature Importance
+## Advanced: Feature Importance
 
 **Which features distinguish the clusters?**
 
@@ -445,7 +443,7 @@ for i, feat_idx in enumerate(top_features):
 
 ---
 
-## 🎯 Real-World Examples
+## Real-World Examples
 
 ### **Example: 100 Rumbles from Single Herd**
 
@@ -484,7 +482,7 @@ python analyze_rumbles_unsupervised.py \
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### **"Too few features" or "All in one cluster"**
 
@@ -518,7 +516,7 @@ python analyze_rumbles_unsupervised.py \
 
 ---
 
-## 📚 Summary
+## Summary
 
 **You can now**:
 ✅ Discover natural rumble groupings **without labels**  
