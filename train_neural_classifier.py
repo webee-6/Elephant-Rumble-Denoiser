@@ -44,7 +44,7 @@ def plot_training_history(history, save_path='models/training_history.png'):
     
     plt.tight_layout()
     plt.savefig(save_path, dpi=150, bbox_inches='tight')
-    print(f"📊 Training history saved to: {save_path}")
+    print(f"Training history saved to: {save_path}")
     
 
 def main():
@@ -138,16 +138,16 @@ Examples:
     
     # Validate inputs
     if not Path(args.audio).exists():
-        print(f"❌ Audio directory not found: {args.audio}")
+        print(f" Audio directory not found: {args.audio}")
         sys.exit(1)
     
     if not Path(args.labels).exists():
-        print(f"❌ Labels file not found: {args.labels}")
+        print(f" Labels file not found: {args.labels}")
         sys.exit(1)
     
     # Print configuration
     print("="*70)
-    print("🧠 NEURAL NETWORK RUMBLE CLASSIFIER")
+    print(" NEURAL NETWORK RUMBLE CLASSIFIER")
     print("="*70)
     print(f"Audio directory:  {args.audio}")
     print(f"Labels file:      {args.labels}")
@@ -188,8 +188,8 @@ Examples:
     print("\n" + "="*70)
     print("TRAINING COMPLETE")
     print("="*70)
-    print(f"✅ Model saved to: {args.output}/best_model.pth")
-    print(f"✅ Final validation accuracy: {max(trainer.history['val_acc']):.4f}")
+    print(f"Model saved to: {args.output}/best_model.pth")
+    print(f"Final validation accuracy: {max(trainer.history['val_acc']):.4f}")
     
     # Test prediction on first file
     print("\n" + "="*70)
@@ -212,7 +212,7 @@ Examples:
         for i, idx in enumerate(top_5):
             print(f"  {i+1}. Window {idx}: {attn[idx]:.4f}")
     
-    print("\n🎉 All done! Use the trained model with:")
+    print("\nAll done! Use the trained model with:")
     print(f"   from src.neural_classifier import RumbleClassificationTrainer")
     print(f"   trainer = RumbleClassificationTrainer('{args.audio}', '{args.labels}')")
     print(f"   result = trainer.predict('path/to/new_rumble.wav')")
