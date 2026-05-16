@@ -81,7 +81,7 @@ class PipelineConfig:
     
     def print_summary(self):
         """Print configuration summary"""
-        print('⚙️  Pipeline Configuration')
+        print('Pipeline Configuration')
         print('='*60)
         print(f'STFT: n_fft={self.n_fft}, hop={self.hop_length}')
         print(f'Band-Pass: {self.bp_lowcut}-{self.bp_highcut} Hz (order={self.bp_order})')
