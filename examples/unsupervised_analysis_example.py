@@ -13,7 +13,7 @@ import numpy as np
 from pathlib import Path
 
 print("="*70)
-print("🐘 ELEPHANT RUMBLE UNSUPERVISED ANALYSIS - EXAMPLE")
+print("ELEPHANT RUMBLE UNSUPERVISED ANALYSIS")
 print("="*70)
 
 # ============================================================================
@@ -31,7 +31,7 @@ analyzer = UnsupervisedRumbleAnalyzer(
     output_dir='unsupervised_results'
 )
 
-print(f"✅ Loaded {len(analyzer.audio_files)} rumble files")
+print(f"Loaded {len(analyzer.audio_files)} rumble files")
 
 # ============================================================================
 # STEP 2: Extract Acoustic Features
@@ -74,8 +74,8 @@ print("="*70)
 # Test 2-10 clusters, use multiple metrics
 optimal_k = analyzer.find_optimal_clusters(max_k=10)
 
-print(f"\n✅ Optimal number of clusters: {optimal_k}")
-print(f"📊 See: unsupervised_results/optimal_clusters.png")
+print(f"\nOptimal number of clusters: {optimal_k}")
+print(f"See: unsupervised_results/optimal_clusters.png")
 
 # ============================================================================
 # STEP 5: Cluster the Rumbles
@@ -195,27 +195,20 @@ print("""
 # ============================================================================
 # SUMMARY
 # ============================================================================
-print("\n" + "="*70)
-print("ANALYSIS COMPLETE! 🎉")
-print("="*70)
 
-print(f"\n📊 Summary:")
+print(f"\nSummary:")
 print(f"   Rumbles analyzed: {len(analyzer.audio_files)}")
 print(f"   Features extracted: {features.shape[1]}")
 print(f"   Clusters discovered: {len(np.unique(labels))}")
 print(f"   Anomalies found: {n_anomalies}")
 
-print(f"\n💾 Results saved to: unsupervised_results/")
-print(f"   ✅ cluster_assignments.csv")
-print(f"   ✅ anomalies.csv")
-print(f"   ✅ visualization.png")
-print(f"   ✅ optimal_clusters.png")
-print(f"   ✅ features_normalized.npy")
+print(f"\nResults saved to: unsupervised_results/")
+print(f"   cluster_assignments.csv")
+print(f"   anomalies.csv")
+print(f"   visualization.png")
+print(f"   optimal_clusters.png")
+print(f"   features_normalized.npy")
 
-print(f"\n🎯 Key insight:")
+print(f"\nKey insight:")
 print(f"   Your rumbles naturally group into {len(np.unique(labels))} distinct patterns!")
 print(f"   Listen to representatives to understand what they represent.")
-
-print("\n" + "="*70)
-print("📚 Next: Review docs/UNSUPERVISED_GUIDE.md for interpretation tips")
-print("="*70)
