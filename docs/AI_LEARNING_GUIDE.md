@@ -1,10 +1,10 @@
-# 🤖 AI Learning for Elephant Rumbles
+# AI Learning for Elephant Rumbles
 
 Complete guide to using machine learning on your denoised elephant rumbles.
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 1. [Overview](#overview)
 2. [Quick Start](#quick-start)
@@ -494,20 +494,6 @@ model = load_pretrained('african_elephant_classifier_v1')
 
 prediction = model.predict('my_rumble.wav')
 ```
-
-### Model Performance Benchmarks
-
-| Model | Accuracy | Training Time | Inference Speed |
-|-------|----------|---------------|-----------------|
-| Random Forest | 85% | 2 min | 1ms/sample |
-| SVM (RBF) | 88% | 5 min | 0.5ms/sample |
-| CNN | 92% | 30 min | 10ms/sample |
-| LSTM | 90% | 45 min | 15ms/sample |
-| VGGish Transfer | 94% | 10 min | 20ms/sample |
-
-*Benchmarks on 1000-sample dataset, 5 classes*
-
----
 
 ## Next Steps
 
