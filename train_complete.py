@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Complete Elephant Rumble Classifier Training & Testing
-========================================================
+Elephant Rumble Classifier Training & Testing
+=============================================
 
 Trains multiple models (Random Forest, SVM, CNN) and provides comprehensive evaluation.
 
@@ -46,7 +46,7 @@ try:
     from torch.utils.data import Dataset, DataLoader, TensorDataset
     TORCH_AVAILABLE = True
 except ImportError:
-    print("⚠️ PyTorch not installed. CNN training will be skipped.")
+    print("PyTorch not installed. CNN training will be skipped.")
     print("   Install with: pip install torch")
     TORCH_AVAILABLE = False
 
@@ -63,13 +63,13 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', 50)
 
 print("="*70)
-print("🐘 ELEPHANT RUMBLE CLASSIFIER - COMPLETE TRAINING")
+print("ELEPHANT RUMBLE CLASSIFIER - COMPLETE TRAINING")
 print("="*70)
-print("\n✅ All libraries imported successfully!")
-print(f"📦 NumPy: {np.__version__}")
-print(f"📦 Pandas: {pd.__version__}")
+print("\nAll libraries imported successfully!")
+print(f"NumPy: {np.__version__}")
+print(f"Pandas: {pd.__version__}")
 if TORCH_AVAILABLE:
-    print(f"📦 PyTorch: {torch.__version__}")
+    print(f" PyTorch: {torch.__version__}")
     print(f"   Device: {'cuda' if torch.cuda.is_available() else 'cpu'}")
 
 # ============================================================================
@@ -95,7 +95,7 @@ if Path('unsupervised_results/features_pca.npy').exists():
 else:
     features = features_normalized
 
-print(f"\n✅ Loaded data:")
+print(f"\nLoaded data:")
 print(f"   Files: {len(clusters_df)}")
 print(f"   Features: {features.shape[1]} dimensions")
 print(f"   Clusters: {clusters_df['cluster'].nunique()}")
@@ -111,7 +111,7 @@ print("="*70)
 # Cluster statistics
 cluster_counts = clusters_df['cluster'].value_counts().sort_index()
 
-print("\n📊 Cluster Distribution:")
+print("\n Cluster Distribution:")
 print("="*50)
 for cluster_id, count in cluster_counts.items():
     percentage = count / len(clusters_df) * 100
@@ -146,14 +146,14 @@ Path('models').mkdir(exist_ok=True)
 plt.savefig('models/cluster_distribution.png', dpi=150, bbox_inches='tight')
 plt.show()
 
-print(f"\n✅ You have {len(cluster_counts)} clusters")
+print(f"\n You have {len(cluster_counts)} clusters")
 if max(cluster_counts) / min(cluster_counts) < 2:
     print("   ✓ Balanced split!")
 else:
-    print(f"   ⚠️ Imbalanced: largest is {max(cluster_counts)/min(cluster_counts):.1f}x bigger")
+    print(f" Imbalanced: largest is {max(cluster_counts)/min(cluster_counts):.1f}x bigger")
 
 # Show representative files
-print("\n🎧 REPRESENTATIVE RUMBLES FROM EACH CLUSTER:")
+print("\n REPRESENTATIVE RUMBLES FROM EACH CLUSTER:")
 print("-"*70)
 for cluster_id in sorted(clusters_df['cluster'].unique()):
     cluster_files = clusters_df[clusters_df['cluster'] == cluster_id]['filename']
@@ -183,7 +183,7 @@ for i in range(len(cluster_counts)):
     if i not in cluster_names:
         cluster_names[i] = f"Type {chr(65+i)}"  # A, B, C, D...
 
-print("\n🏷️ CLUSTER LABELS:")
+print("\n CLUSTER LABELS:")
 print("="*50)
 for cluster_id, name in cluster_names.items():
     count = (clusters_df['cluster'] == cluster_id).sum()
@@ -200,7 +200,7 @@ Path('data').mkdir(exist_ok=True)
 with open('data/labels.json', 'w') as f:
     json.dump(labels_dict, f, indent=2)
 
-print("\n💾 Saved: data/labels.json")
+print("\n Saved: data/labels.json")
 
 # ============================================================================
 # 4. PREPARE DATA
@@ -214,7 +214,7 @@ print("="*70)
 y = clusters_df['cluster'].values
 X = features  # Already normalized/PCA'd
 
-print(f"\n📊 Data Summary:")
+print(f"\n Data Summary:")
 print(f"   Total samples: {len(X)}")
 print(f"   Feature dimensions: {X.shape[1]}")
 print(f"   Number of classes: {len(np.unique(y))}")
@@ -227,7 +227,7 @@ X_train, X_test, y_train, y_test = train_test_split(
     stratify=y
 )
 
-print(f"\n✅ Data split:")
+print(f"\n Data split:")
 print(f"   Training:   {len(X_train)} samples ({len(X_train)/len(X)*100:.1f}%)")
 print(f"   Testing:    {len(X_test)} samples ({len(X_test)/len(X)*100:.1f}%)")
 
@@ -248,7 +248,7 @@ rf_clf = RandomForestClassifier(
     n_jobs=-1
 )
 
-print("\n🌲 Training Random Forest...")
+print("\n Training Random Forest...")
 rf_clf.fit(X_train, y_train)
 
 y_train_pred_rf = rf_clf.predict(X_train)
@@ -258,7 +258,7 @@ y_test_proba_rf = rf_clf.predict_proba(X_test)
 train_acc_rf = accuracy_score(y_train, y_train_pred_rf)
 test_acc_rf = accuracy_score(y_test, y_test_pred_rf)
 
-print(f"\n✅ Random Forest Performance:")
+print(f"\nRandom Forest Performance:")
 print(f"   Train Accuracy: {train_acc_rf:.1%}")
 print(f"   Test Accuracy:  {test_acc_rf:.1%}")
 
@@ -278,7 +278,7 @@ svm_clf = SVC(
     random_state=42
 )
 
-print("\n🎯 Training SVM...")
+print("\n Training SVM...")
 svm_clf.fit(X_train, y_train)
 
 y_train_pred_svm = svm_clf.predict(X_train)
@@ -288,7 +288,7 @@ y_test_proba_svm = svm_clf.predict_proba(X_test)
 train_acc_svm = accuracy_score(y_train, y_train_pred_svm)
 test_acc_svm = accuracy_score(y_test, y_test_pred_svm)
 
-print(f"\n✅ SVM Performance:")
+print(f"\nSVM Performance:")
 print(f"   Train Accuracy: {train_acc_svm:.1%}")
 print(f"   Test Accuracy:  {test_acc_svm:.1%}")
 
@@ -372,7 +372,7 @@ if TORCH_AVAILABLE:
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=5)
     
     # Training
-    print(f"\n🧠 Training CNN on {device}...")
+    print(f"\n Training CNN on {device}...")
     print(f"   Architecture: Conv1D → Conv1D → Dense → Output")
     print(f"   Parameters: {sum(p.numel() for p in cnn_model.parameters()):,}")
     
@@ -445,7 +445,7 @@ if TORCH_AVAILABLE:
             patience_counter += 1
         
         if patience_counter >= patience:
-            print(f"\n⏹️ Early stopping at epoch {epoch+1}")
+            print(f"\n Early stopping at epoch {epoch+1}")
             break
     
     # Load best model
@@ -464,7 +464,7 @@ if TORCH_AVAILABLE:
     _, y_train_pred_cnn = train_outputs.max(1)
     train_acc_cnn = accuracy_score(y_train, y_train_pred_cnn.cpu().numpy())
     
-    print(f"\n✅ CNN Performance:")
+    print(f"\n CNN Performance:")
     print(f"   Train Accuracy: {train_acc_cnn:.1%}")
     print(f"   Test Accuracy:  {test_acc_cnn:.1%}")
     print(f"   Best Val Accuracy: {best_val_acc:.1%}")
@@ -523,7 +523,7 @@ if TORCH_AVAILABLE:
 
 comparison_df = pd.DataFrame(models_data)
 
-print("\n📊 MODEL COMPARISON:")
+print("\n MODEL COMPARISON:")
 print("="*60)
 print(comparison_df.to_string(index=False))
 
@@ -532,7 +532,7 @@ best_idx = comparison_df['Test Accuracy'].idxmax()
 best_model_name = comparison_df.loc[best_idx, 'Model']
 best_acc = comparison_df.loc[best_idx, 'Test Accuracy']
 
-print(f"\n🏆 Best Model: {best_model_name} ({best_acc:.1%} test accuracy)")
+print(f"\n Best Model: {best_model_name} ({best_acc:.1%} test accuracy)")
 
 # Select best model for analysis
 if best_model_name == 'Random Forest':
@@ -587,7 +587,7 @@ print("STEP 9: DETAILED EVALUATION")
 print("="*70)
 
 # Classification report
-print("\n📊 Classification Report:")
+print("\n Classification Report:")
 print("="*70)
 report = classification_report(
     y_test, 
@@ -623,7 +623,7 @@ plt.savefig('models/confusion_matrix.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 # Confusion matrix analysis
-print("\n📊 Confusion Matrix Analysis:")
+print("\n Confusion Matrix Analysis:")
 print("="*50)
 for i, name in cluster_names.items():
     true_pos = cm[i, i]
@@ -634,13 +634,13 @@ for i, name in cluster_names.items():
     print(f"\n{name}:")
     print(f"  Correctly classified: {true_pos}/{total} ({true_pos/total*100:.1f}%)")
     if false_neg > 0:
-        print(f"  ⚠️ Missed (false negatives): {false_neg}")
+        print(f"   Missed (false negatives): {false_neg}")
     if false_pos > 0:
-        print(f"  ⚠️ False alarms (false positives): {false_pos}")
+        print(f"   False alarms (false positives): {false_pos}")
 
 # ROC Curve (binary classification only)
 if len(cluster_names) == 2:
-    print("\n📊 ROC Curve Analysis:")
+    print("\n ROC Curve Analysis:")
     fpr, tpr, thresholds = roc_curve(y_test, y_test_proba[:, 1])
     roc_auc = roc_auc_score(y_test, y_test_proba[:, 1])
     
@@ -662,26 +662,26 @@ if len(cluster_names) == 2:
     
     print(f"   AUC Score: {roc_auc:.3f}")
     if roc_auc > 0.9:
-        print("   ✅ Excellent discrimination!")
+        print("   Excellent discrimination!")
     elif roc_auc > 0.8:
-        print("   ✅ Good discrimination")
+        print("   Good discrimination")
     else:
-        print("   ✓ Acceptable discrimination")
+        print("   Acceptable discrimination")
 
 # Cross-validation (for non-neural models)
 if best_model_name != 'CNN':
-    print("\n🔄 Running 5-Fold Cross-Validation...")
+    print("\n Running 5-Fold Cross-Validation...")
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
     cv_scores = cross_val_score(best_clf, X, y, cv=cv, scoring='accuracy', n_jobs=-1)
     
-    print(f"\n📊 CV Results:")
+    print(f"\n CV Results:")
     for i, score in enumerate(cv_scores, 1):
         print(f"   Fold {i}: {score:.1%}")
     print(f"\n   Mean: {cv_scores.mean():.1%} (± {cv_scores.std():.1%})")
 
 # Feature importance (Random Forest only)
 if isinstance(best_clf, RandomForestClassifier):
-    print("\n🔍 Feature Importance Analysis:")
+    print("\n Feature Importance Analysis:")
     importances = best_clf.feature_importances_
     indices = np.argsort(importances)[::-1]
     
@@ -716,16 +716,16 @@ Path('models').mkdir(exist_ok=True)
 # Save best model
 if best_model_name != 'CNN':
     joblib.dump(best_clf, 'models/best_classifier.pkl')
-    print(f"\n💾 Saved: models/best_classifier.pkl")
+    print(f"\n Saved: models/best_classifier.pkl")
 else:
     # Already saved during training
-    print(f"\n💾 Saved: models/cnn_best.pth")
+    print(f"\n Saved: models/cnn_best.pth")
 
 # Save all models
 joblib.dump(rf_clf, 'models/random_forest.pkl')
 joblib.dump(svm_clf, 'models/svm.pkl')
-print(f"💾 Saved: models/random_forest.pkl")
-print(f"💾 Saved: models/svm.pkl")
+print(f" Saved: models/random_forest.pkl")
+print(f" Saved: models/svm.pkl")
 
 # Save metadata
 metadata = {
@@ -748,7 +748,7 @@ if TORCH_AVAILABLE:
 with open('models/model_metadata.json', 'w') as f:
     json.dump(metadata, f, indent=2)
 
-print(f"💾 Saved: models/model_metadata.json")
+print(f" Saved: models/model_metadata.json")
 
 # Save predictions
 test_indices = np.arange(len(X))[len(X_train):]
@@ -769,23 +769,23 @@ for i in sorted(cluster_names.keys()):
     predictions_df[f'prob_{cluster_names[i]}'] = y_test_proba[:, i]
 
 predictions_df.to_csv('models/test_predictions.csv', index=False)
-print(f"💾 Saved: models/test_predictions.csv")
+print(f" Saved: models/test_predictions.csv")
 
 # ============================================================================
 # 11. SUMMARY
 # ============================================================================
 
 print("\n" + "="*70)
-print("🎉 TRAINING COMPLETE!")
+print(" TRAINING COMPLETE!")
 print("="*70)
 
-print(f"\n📊 Final Results:")
+print(f"\n Final Results:")
 print(f"   Best Model: {best_model_name}")
 print(f"   Test Accuracy: {best_acc:.1%}")
 print(f"   Total Samples: {len(X)}")
 print(f"   Classes: {len(cluster_names)}")
 
-print(f"\n💾 Saved Files:")
+print(f"\n Saved Files:")
 print(f"   ✅ models/best_classifier.pkl (or cnn_best.pth)")
 print(f"   ✅ models/random_forest.pkl")
 print(f"   ✅ models/svm.pkl")
@@ -793,7 +793,7 @@ print(f"   ✅ models/model_metadata.json")
 print(f"   ✅ models/test_predictions.csv")
 print(f"   ✅ data/labels.json")
 
-print(f"\n📊 Visualizations:")
+print(f"\n Visualizations:")
 print(f"   ✅ models/cluster_distribution.png")
 print(f"   ✅ models/model_comparison.png")
 print(f"   ✅ models/confusion_matrix.png")
@@ -804,7 +804,7 @@ if len(cluster_names) == 2:
 if isinstance(best_clf, RandomForestClassifier):
     print(f"   ✅ models/feature_importance.png")
 
-print(f"\n🚀 Usage:")
+print(f"\n Usage:")
 print(f"   ```python")
 if best_model_name == 'CNN':
     print(f"   import torch")
@@ -815,7 +815,3 @@ else:
     print(f"   clf = joblib.load('models/best_classifier.pkl')")
     print(f"   prediction = clf.predict(new_features)")
 print(f"   ```")
-
-print("\n" + "="*70)
-print("🐘 Happy Classifying! 🎯")
-print("="*70)
