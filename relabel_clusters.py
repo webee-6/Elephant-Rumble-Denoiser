@@ -12,7 +12,7 @@ import json
 from pathlib import Path
 
 print("="*70)
-print("🤖 IMPROVED AUTOMATIC CLUSTER LABELING")
+print("IMPROVED AUTOMATIC CLUSTER LABELING")
 print("="*70)
 
 # Load cluster assignments
@@ -22,13 +22,13 @@ clusters_df = pd.read_csv('unsupervised_results/cluster_assignments.csv')
 with open('unsupervised_results/cluster_characteristics.json', 'r') as f:
     cluster_chars = json.load(f)
 
-print(f"\n✅ Loaded {len(clusters_df)} files in {len(cluster_chars)} clusters")
+print(f"\n Loaded {len(clusters_df)} files in {len(cluster_chars)} clusters")
 
 # ============================================================================
 # IMPROVED LABELING STRATEGY
 # ============================================================================
 
-print("\n🔬 Analyzing cluster differences...")
+print("\n Analyzing cluster differences...")
 
 # Convert keys to int and collect all stats
 clusters = {}
@@ -65,7 +65,7 @@ for cluster_id, stats in clusters.items():
     count = cluster_counts.get(cluster_id, 0)
     if count < outlier_threshold:
         outliers.append(cluster_id)
-        print(f"\n⚠️ Cluster {cluster_id}: Only {count} files - Marked as OUTLIER")
+        print(f"\n Cluster {cluster_id}: Only {count} files - Marked as OUTLIER")
     else:
         main_clusters[cluster_id] = stats
 
@@ -112,7 +112,7 @@ def generate_improved_label(cluster_id, stats, is_outlier=False):
 # Generate labels
 auto_labels = {}
 
-print("\n🏷️ Generated Labels:\n")
+print("\n Generated Labels:\n")
 for cluster_id, stats in clusters.items():
     is_outlier = cluster_id in outliers
     label = generate_improved_label(cluster_id, stats, is_outlier)
@@ -133,7 +133,7 @@ for cluster_id, stats in clusters.items():
 # Check if labels are too similar
 unique_labels = set(auto_labels.values())
 if len(unique_labels) < len(main_clusters) * 0.5:  # Less than half unique
-    print("⚠️ Warning: Clusters are very similar!")
+    print(" Warning: Clusters are very similar!")
     print("   Adding cluster IDs to distinguish them...\n")
     
     # Add cluster letter suffix to make them unique
@@ -147,11 +147,11 @@ if len(unique_labels) < len(main_clusters) * 0.5:  # Less than half unique
 # ============================================================================
 
 print("="*70)
-print("📊 CLUSTER COMPARISON")
+print(" CLUSTER COMPARISON")
 print("="*70)
 
 if len(main_clusters) >= 2:
-    print("\n🔍 Key Differences Between Main Clusters:\n")
+    print("\n Key Differences Between Main Clusters:\n")
     
     cluster_ids = sorted(main_clusters.keys())
     for i in range(len(cluster_ids) - 1):
@@ -191,7 +191,7 @@ if len(main_clusters) >= 2:
 # ============================================================================
 
 print("="*70)
-print("💾 SAVING IMPROVED LABELS")
+print(" SAVING IMPROVED LABELS")
 print("="*70)
 
 Path('data').mkdir(exist_ok=True)
@@ -200,23 +200,23 @@ Path('data').mkdir(exist_ok=True)
 with open('data/cluster_names_auto.json', 'w') as f:
     json.dump(auto_labels, f, indent=2)
 
-print(f"\n✅ Saved: data/cluster_names_auto.json")
+print(f"\n Saved: data/cluster_names_auto.json")
 
 # Print final summary
 print("\n" + "="*70)
-print("✅ LABELING COMPLETE!")
+print(" LABELING COMPLETE!")
 print("="*70)
 
-print(f"\n🏷️ Final Labels:")
+print(f"\n Final Labels:")
 for cluster_id in sorted(auto_labels.keys()):
     count = cluster_counts.get(cluster_id, 0)
     print(f"  Cluster {cluster_id}: {auto_labels[cluster_id]} ({count} files)")
 
 if outliers:
-    print(f"\n⚠️ Outlier clusters: {outliers}")
+    print(f"\n Outlier clusters: {outliers}")
     print("   These have too few files for reliable training.")
     print("   Consider removing them or merging with nearest cluster.")
 
-print("\n🚀 Next Step:")
+print("\n Next Step:")
 print("   python train_complete.py")
 print("="*70)
