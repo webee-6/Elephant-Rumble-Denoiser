@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🐘 Elephant Rumble Denoiser
+# Kumki Radar - Elephant Rumble Denoiser
 
 ### Multi-stage DSP Pipeline for Bioacoustic Denoising
 
@@ -16,11 +16,11 @@
 
 ---
 
-## 📖 About
+## About
 
-Multi-stage DSP pipeline for removing mechanical noise (airplanes, vehicles, generators) from elephant bioacoustic recordings. Built for the elephant bioacoustics hackathon challenge to denoise mechanical interference from African elephant rumble recordings in the 20-300 Hz frequency range.
+Multi-stage DSP pipeline for removing mechanical noise (airplanes, vehicles, generators) from elephant bioacoustic recordings. Built for the elephant bioacoustics to denoise mechanical interference from elephant rumble recordings in the 20-300 Hz frequency range.
 
-## 🛠️ Built With
+## Built With
 
 <table>
 <tr>
@@ -50,7 +50,7 @@ Multi-stage DSP pipeline for removing mechanical noise (airplanes, vehicles, gen
 </tr>
 </table>
 
-## 🎯 Features
+## Features
 
 - **Multi-stage denoising pipeline**:
   1. Butterworth band-pass filtering (20-1000 Hz)
@@ -65,7 +65,7 @@ Multi-stage DSP pipeline for removing mechanical noise (airplanes, vehicles, gen
 - **Visualization**: B/W spectrograms and before/after comparisons
 - **Parameter tuning**: Test multiple configurations to optimize results
 
-## 📦 Installation
+## Installation
 
 ### Prerequisites
 - Python 3.8 or higher
@@ -118,7 +118,7 @@ tqdm>=4.64.0           # Progress bars
 python -c "import librosa, noisereduce, scipy; print('✅ All dependencies installed!')"
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Prepare Your Data
 
@@ -152,7 +152,7 @@ This will:
 - Save processing logs → `outputs/logs/`
 - Create a timestamped `.zip` archive
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 elephant_denoiser/
@@ -176,7 +176,7 @@ elephant_denoiser/
 └── notebooks/             # Jupyter notebooks for exploration
 ```
 
-## ⚙️ Configuration
+## Configuration
 
 Edit `config/config.py` to customize:
 
@@ -201,7 +201,7 @@ hpss_kernel_size = 31
 hpss_margin = 3.0
 ```
 
-## 🧪 Parameter Tuning
+## Parameter Tuning
 
 Use the tuning module to test different parameters:
 
@@ -221,7 +221,7 @@ results = test_parameters(
 )
 ```
 
-## 📊 Understanding the Pipeline
+## Understanding the Pipeline
 
 ### Stage 1: Band-Pass Filter
 Removes frequencies outside elephant vocalization range (20-1000 Hz).
@@ -240,7 +240,7 @@ MSE-optimal noise reduction using local signal statistics.
 
 ---
 
-## 🪟 Windowing & Segmentation
+## Windowing & Segmentation
 
 ### Built-in Windowing
 
@@ -277,11 +277,11 @@ result = process_single_call_segmented(
 
 ---
 
-## 🤖 Unsupervised Learning (No Labels Required!)
+## Unsupervised Learning (No Labels Required!)
 
 **Discover natural patterns in your rumbles without manual labeling!**
 
-### 🔍 Quick Start - Clustering & Pattern Discovery
+### Quick Start - Clustering & Pattern Discovery
 
 ```bash
 # One command - extracts features, finds clusters, detects anomalies
@@ -331,25 +331,6 @@ python analyze_rumbles_unsupervised.py \
 - Voice quality (jitter, shimmer)
 - Spectral features (formants, MFCC)
 
-**openl3** (512-dim embeddings - BEST for small datasets):
-```bash
-python analyze_rumbles_unsupervised.py \
-    --audio outputs/audio \
-    --features openl3
-```
-- Pre-trained on 2M+ audio clips
-- Transfer learning ready
-- No feature engineering
-
-**Hybrid** (551 features - BEST accuracy):
-```bash
-python analyze_rumbles_unsupervised.py \
-    --audio outputs/audio \
-    --features hybrid
-```
-- Combines custom + openl3
-- Maximum discriminative power
-
 ### Advanced Options
 
 **Specify cluster count:**
@@ -396,43 +377,12 @@ selection_047_cleaned.wav,True,-0.128
 - Left: Clusters (different colors)
 - Right: Anomalies (red = unusual)
 
-### Next Steps
-
-1. **Listen to cluster representatives** to understand patterns
-2. **Investigate anomalies** - could be novel calls or artifacts
-3. **Use clusters as labels** for supervised learning
-
-**See [UNSUPERVISED_GUIDE.md](docs/UNSUPERVISED_GUIDE.md) for complete tutorial.**
+**See [UNSUPERVISED_GUIDE.md](docs/UNSUPERVISED_GUIDE.md) for more details.**
 
 ---
 
-## 🧠 Supervised Learning (Optional - If You Have Labels)
 
-### Quick Start
-
-```python
-from src.ai_training import RumbleTrainer
-
-# Initialize trainer
-trainer = RumbleTrainer(
-    audio_dir='outputs/audio',      # Your cleaned audio
-    labels_file='data/labels.json',  # Your call labels
-    output_dir='models'
-)
-
-# Extract features
-features, labels = trainer.extract_all_features()
-
-# Train classifier
-results = trainer.train_random_forest(n_estimators=200)
-# Test accuracy: 0.875
-
-# Or train deep learning model
-cnn_results = trainer.train_cnn_pytorch(epochs=100)
-# Val accuracy: 0.920
-```
-
-### 🧠 Neural Network with Windowing (Recommended)
+### Neural Network with Windowing (Recommended)
 
 **Complete pipeline with segmentation:**
 
@@ -473,12 +423,12 @@ Prediction on new rumble:
 
 ### Supported Tasks
 
-| Task | Method | Accuracy | Use Case |
-|------|--------|----------|----------|
-| **Call Classification** | Random Forest | ~85% | Rumble type (contact/greeting/alarm) |
-| **Individual ID** | SVM | ~88% | Which elephant made the call |
-| **Call Detection** | CNN | ~92% | Rumble vs background noise |
-| **Unsupervised Clustering** | Autoencoder + K-Means | N/A | Discover call patterns |
+| Task | Method |  Use Case |
+|------|--------|----------|
+| **Call Classification** | Random Forest  | Rumble type (contact/greeting/alarm) |
+| **Individual ID** | SVM  | Which elephant made the call |
+| **Call Detection** | CNN  | Rumble vs background noise |
+| **Unsupervised Clustering** | Autoencoder + K-Means | Discover call patterns |
 
 ### Features Extracted
 
@@ -493,7 +443,7 @@ Prediction on new rumble:
 - **[NEURAL_NETWORK_GUIDE.md](docs/NEURAL_NETWORK_GUIDE.md)** - Windowing & segmentation strategy ⭐
 - **[LABEL_CREATION.md](docs/LABEL_CREATION.md)** - How to create training labels
 
-## 📈 Output Analysis
+## Output Analysis
 
 After batch processing, check `outputs/logs/processing_results.csv` for:
 - Processing status (success/failed)
@@ -501,7 +451,7 @@ After batch processing, check `outputs/logs/processing_results.csv` for:
 - Duration, sample rate
 - Noise profile source and validation metrics
 
-## 🔧 Technology Stack
+## Technology Stack
 
 | Component | Technology | Purpose |
 |-----------|-----------|---------|
@@ -512,73 +462,7 @@ After batch processing, check `outputs/logs/processing_results.csv` for:
 | **Data Pipeline** | Pandas, NumPy | Batch processing & analysis |
 | **Visualization** | Matplotlib | B/W spectrograms |
 
-### Algorithm Details
-
-<details>
-<summary><b>1. Butterworth Band-Pass Filter</b></summary>
-
-```python
-# Zero-phase IIR filter
-H(ω) = 1 / (1 + (ω/ωc)^(2n))
-```
-- **Cutoffs**: 20-1000 Hz (elephant vocalization range)
-- **Order**: 2 (stable at low frequencies)
-- **Implementation**: Forward-backward filtering (filtfilt) for zero phase distortion
-</details>
-
-<details>
-<summary><b>2. Notch Filter (Generator Harmonics)</b></summary>
-
-```python
-# IIR notch at 60Hz, 120Hz, 180Hz, ...
-```
-- **Fundamental**: 60 Hz (US) / 50 Hz (Europe)
-- **Harmonics**: Up to 10 (600 Hz)
-- **Q Factor**: 30 (narrow notch)
-</details>
-
-<details>
-<summary><b>3. Spectral Gating</b></summary>
-
-```python
-# Noise subtraction in frequency domain
-G(m,k) = max(1 - α·Φ_n(k)/|X(m,k)|², 0)
-Ŝ(m,k) = G(m,k) · X(m,k)
-```
-- **Adaptive**: Different α for airplane (0.85), vehicle (0.80), generator (0.90)
-- **Stationary**: True for generators, False for vehicles/airplanes
-</details>
-
-<details>
-<summary><b>4. HPSS (Harmonic-Percussive Separation)</b></summary>
-
-```python
-# Median filtering in time & frequency
-H(m,k) = Median_time(|X(m,k)|)
-P(m,k) = Median_freq(|X(m,k)|)
-```
-- **Harmonic**: Elephant rumbles (horizontal ridges in spectrogram)
-- **Percussive**: Machinery clicks/pops (vertical spikes)
-- **Kernel Size**: 31 (median filter window)
-- **Margin**: 3.0 (separation strength)
-</details>
-
-<details>
-<summary><b>5. Wiener Filter</b></summary>
-
-```python
-# MSE-optimal noise reduction
-W(k) = Φ_s(k) / (Φ_s(k) + Φ_n(k))
-```
-- **Window**: 29 samples (local statistics)
-- **Minimizes**: E[|s(t) - ŝ(t)|²]
-</details>
-
-## 🔬 Research Context
-
-This pipeline was developed for the elephant bioacoustics hackathon challenge to denoise mechanical interference from African elephant rumble recordings. The frequency range (20-300 Hz for fundamentals) requires specialized low-frequency processing.
-
-## 🤝 Contributing
+## Contributing
 
 Contributions welcome! Areas for improvement:
 
@@ -604,17 +488,17 @@ python -m pytest tests/
 black src/ config/ tests/
 ```
 
-## 📜 License
+## License
 
 MIT License - feel free to use and modify for your research.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
-- Built for **elephant bioacoustics research** and hackathon challenges
-- **Librosa** team for excellent audio processing tools
+- Built for **Elephant Voices** and SMU hackathon - **HackSMU VII**
+- **Librosa** team for audio processing tools
 - **Noisereduce** by Tim Sainburg for spectral gating implementation
 - **SciPy** community for robust signal processing algorithms
-- Elephant conservation researchers worldwide 🐘
+- Elephant conservation researchers worldwide 
 
 ---
 
