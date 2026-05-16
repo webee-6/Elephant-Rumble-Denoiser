@@ -23,9 +23,9 @@ def setup_notebook_environment():
     os.makedirs(output_dir / 'spectrograms', exist_ok=True)
     os.makedirs(output_dir / 'logs', exist_ok=True)
     
-    print('✅ Notebook environment ready')
-    print(f'📁 Project root: {project_root}')
-    print(f'📁 Outputs: {output_dir}')
+    print('Notebook environment ready')
+    print(f'Project root: {project_root}')
+    print(f'Outputs: {output_dir}')
     
     return str(output_dir)
 
@@ -66,7 +66,7 @@ def display_result(result, show_audio=True):
             print('\n🔊 Cleaned Audio:')
             display(Audio(result['output_audio']))
     else:
-        print(f'\n❌ Processing failed: {result["error"]}')
+        print(f'\nProcessing failed: {result["error"]}')
 
 
 def quick_test(df, selection_index=0, show_audio=True):
@@ -85,7 +85,7 @@ def quick_test(df, selection_index=0, show_audio=True):
     
     test_row = df.iloc[selection_index]
     
-    print(f'🧪 Testing on selection {selection_index}')
+    print(f'Testing on selection {selection_index}')
     print(f'   File: {test_row["Sound_file"]}')
     print(f'   Time: {test_row["Start_time"]:.2f}s - {test_row["End_time"]:.2f}s')
     
